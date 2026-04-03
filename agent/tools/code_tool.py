@@ -13,15 +13,6 @@ from pydantic import BaseModel, Field
 class CodeAnalysisInput(BaseModel):
     code: str = Field(description="The Python source code to analyse.")
 
-
-class CodeFormatInput(BaseModel):
-    code: str = Field(description="The Python code to format and clean up.")
-
-
-class CodeComplexityInput(BaseModel):
-    code: str = Field(description="Python code to measure cyclomatic complexity for.")
-
-
 class CodeAnalysisTool:
     """Collection of code-analysis utilities (Python-focused, no external deps)."""
 
@@ -111,14 +102,14 @@ def create_code_tools() -> list[BaseTool]:
         func=analyser.count_lines,
         name="count_code_lines",
         description="Count the total, code, comment, and blank lines in a piece of code.",
-        args_schema=CodeFormatInput,
+        args_schema=CodeAnalysisInput,
     )
 
     docstring_tool = StructuredTool.from_function(
         func=analyser.extract_docstrings,
         name="extract_docstrings",
         description="Extract all docstrings from Python source code.",
-        args_schema=CodeComplexityInput,
+        args_schema=CodeAnalysisInput,
     )
 
     return [analyse_tool, line_count_tool, docstring_tool]

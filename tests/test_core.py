@@ -28,9 +28,9 @@ class TestEvolvingAgentInit:
 
     def test_repr(self):
         agent = EvolvingAgent()
+        # repr before init uses an empty tool list, no LLM calls needed
         r = repr(agent)
         assert "EvolvingAgent" in r
-        # repr before init should not trigger LLM initialisation
         assert not agent._initialised
 
 

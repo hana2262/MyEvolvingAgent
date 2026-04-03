@@ -139,11 +139,7 @@ class EvolvingAgent:
     @property
     def tool_names(self) -> list[str]:
         """Return the names of all currently registered tools."""
-        if not self._initialised:
-            self._init_llm()
-            self._init_tools()
-            self._init_graph()
-            self._initialised = True
+        self._ensure_init()
         return [t.name for t in self._tools]
 
     def chat(self, user_input: str) -> str:
